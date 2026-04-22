@@ -25,7 +25,7 @@
 html, body {
   margin: 0;
   padding: 0;
-  background: var(--background);
+  background: transparent;
   color: var(--text);
   font-family: var(--sans);
   font-size: 15px;
@@ -36,7 +36,7 @@ html, body {
 .wrap {
   max-width: 720px;
   margin: 0 auto;
-  padding: 32px 24px 48px;
+  padding: 8px 16px 16px;
 }
 
 /* header: title + dek */
@@ -277,5 +277,45 @@ html, body {
   </div>
 
 </div>
+
+<script>
+// Auto-resize the iframe: post our height to the parent window
+// whenever the page loads, resizes, or fonts finish loading.
+(function () {
+  function reportHeight() {
+    // measure the actual content height (not viewport)
+    var h = Math.max(
+      document.body.scrollHeight,
+      document.body.offsetHeight,
+      document.documentElement.clientHeight,
+      document.documentElement.scrollHeight,
+      document.documentElement.offsetHeight
+    );
+    // send to parent — any origin can listen
+    if (window.parent && window.parent !== window) {
+      window.parent.postMessage(
+        { type: 'timeline-height', height: h, id: 'levee-timeline' },
+        '*'
+      );
+    }
+  }
+
+  // Initial + after fonts load + on any layout-affecting event
+  window.addEventListener('load', reportHeight);
+  window.addEventListener('resize', reportHeight);
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(reportHeight);
+  }
+  // Also observe the DOM for late-changing content (images, etc.)
+  if (window.ResizeObserver) {
+    new ResizeObserver(reportHeight).observe(document.body);
+  }
+  // Fallback: also report after a short delay, in case
+  // parent listener wasn't attached at load time
+  setTimeout(reportHeight, 100);
+  setTimeout(reportHeight, 500);
+})();
+</script>
+
 </body>
 </html>
