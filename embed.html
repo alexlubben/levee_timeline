@@ -8,15 +8,55 @@
     as { type: 'timeline-height', height: <px>, id: 'levee-timeline' }.
   - The listener below matches messages from our iframe and sets the
     iframe's height accordingly, so there is no guessed constant.
+  - A small chevron, sticky to the bottom of the reader's viewport,
+    hints that readers should keep scrolling the article. It fades
+    out once the bottom of the timeline enters the viewport.
 -->
-<iframe
-  id="levee-timeline-frame"
-  src="https://alexlubben.github.io/levee_timeline/"
-  title="Levee authority in turmoil — timeline"
-  loading="lazy"
-  scrolling="no"
-  style="display:block;width:100%;max-width:450px;margin:0 auto;border:0;height:600px;"
-></iframe>
+<style>
+  .levee-timeline-wrap {
+    position: relative;
+    max-width: 450px;
+    margin: 0 auto;
+  }
+  .levee-scroll-hint {
+    position: sticky;
+    bottom: 16px;
+    width: 32px;
+    height: 32px;
+    margin: 0 auto 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #4c4d4f;
+    background: rgba(255, 255, 255, 0.85);
+    border-radius: 50%;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+    opacity: 0.7;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+  }
+  .levee-scroll-hint.is-done {
+    opacity: 0;
+  }
+  .levee-scroll-end {
+    width: 100%;
+    height: 1px;
+  }
+</style>
+<div class="levee-timeline-wrap">
+  <iframe
+    id="levee-timeline-frame"
+    src="https://alexlubben.github.io/levee_timeline/"
+    title="Levee authority in turmoil — timeline"
+    loading="lazy"
+    scrolling="no"
+    style="display:block;width:100%;max-width:450px;margin:0 auto;border:0;height:600px;"
+  ></iframe>
+  <div class="levee-scroll-hint" aria-hidden="true">
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+  </div>
+  <div class="levee-scroll-end" aria-hidden="true"></div>
+</div>
 
 <script>
 (function () {
@@ -38,5 +78,20 @@
 
     frame.style.height = h + 'px';
   });
+
+  var hint = document.querySelector('.levee-scroll-hint');
+  var endSentinel = document.querySelector('.levee-scroll-end');
+  if (hint && endSentinel && 'IntersectionObserver' in window) {
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          hint.classList.add('is-done');
+        } else {
+          hint.classList.remove('is-done');
+        }
+      });
+    });
+    observer.observe(endSentinel);
+  }
 })();
 </script>
