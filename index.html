@@ -148,9 +148,33 @@ html, body {
   .timeline-dek { font-size: 13px; }
 }
 
+/* scroll hint: chevron pinned to bottom of iframe viewport */
+.scroll-hint {
+  position: fixed;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ink-soft);
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.18);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+  z-index: 100;
+}
+.scroll-hint.is-visible { opacity: 0.9; }
+.scroll-hint svg { display: block; }
+
 @media print {
   .wrap { padding: 20px; max-width: none; }
   .event { page-break-inside: avoid; }
+  .scroll-hint { display: none; }
 }
 </style>
 </head>
@@ -264,6 +288,37 @@ html, body {
   </div>
 
 </div>
+
+<div class="scroll-hint" aria-hidden="true">
+  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+</div>
+
+<script>
+// Scroll hint: show chevron when the iframe has scrollable content and
+// the reader hasn't reached the bottom. Works when the iframe has a fixed
+// height (internal scroll) and stays hidden when the parent auto-resizes
+// the iframe to content height (no internal scroll).
+(function () {
+  var hint = document.querySelector('.scroll-hint');
+  if (!hint) return;
+
+  function update() {
+    var doc = document.documentElement;
+    var scrollable = doc.scrollHeight > window.innerHeight + 2;
+    var atBottom = (window.innerHeight + window.scrollY) >= doc.scrollHeight - 12;
+    hint.classList.toggle('is-visible', scrollable && !atBottom);
+  }
+
+  window.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', update);
+  window.addEventListener('load', update);
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(update);
+  }
+  setTimeout(update, 200);
+  setTimeout(update, 800);
+})();
+</script>
 
 <script>
 // Auto-resize the iframe: post our height to the parent window
