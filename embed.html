@@ -1,0 +1,42 @@
+<!--
+  Blox embed snippet for the NOLA.com article.
+  Paste this block into the article's HTML asset.
+
+  How it works:
+  - The iframe loads the GitHub Pages timeline.
+  - That page posts its measured content height to this parent window
+    as { type: 'timeline-height', height: <px>, id: 'levee-timeline' }.
+  - The listener below matches messages from our iframe and sets the
+    iframe's height accordingly, so there is no guessed constant.
+-->
+<iframe
+  id="levee-timeline-frame"
+  src="https://alexlubben.github.io/levee_timeline/"
+  title="Levee authority in turmoil — timeline"
+  loading="lazy"
+  scrolling="no"
+  style="display:block;width:100%;max-width:450px;margin:0 auto;border:0;height:600px;"
+></iframe>
+
+<script>
+(function () {
+  var frame = document.getElementById('levee-timeline-frame');
+  if (!frame) return;
+
+  window.addEventListener('message', function (event) {
+    var data = event.data;
+    if (!data || data.type !== 'timeline-height' || data.id !== 'levee-timeline') return;
+    if (event.source !== frame.contentWindow) return;
+
+    var h = parseInt(data.height, 10);
+    if (!isFinite(h) || h <= 0) return;
+
+    // Guard against absurd values and tiny jitter
+    h = Math.min(h, 10000);
+    var current = parseInt(frame.style.height, 10) || 0;
+    if (Math.abs(h - current) < 2) return;
+
+    frame.style.height = h + 'px';
+  });
+})();
+</script>
