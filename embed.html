@@ -8,9 +8,13 @@
     as { type: 'timeline-height', height: <px>, id: 'levee-timeline' }.
   - The listener below matches messages from our iframe and sets the
     iframe's height accordingly, so there is no guessed constant.
-  - A small chevron, sticky to the bottom of the reader's viewport,
-    hints that readers should keep scrolling the article. It fades
-    out once the bottom of the timeline enters the viewport.
+  - A small chevron, fixed to the bottom of the reader's viewport,
+    hints that readers should keep scrolling the article. It only
+    appears while the timeline is being read (top has scrolled past,
+    bottom hasn't) and fades out once the end of the timeline
+    enters view. Fixed positioning is used instead of sticky because
+    Blox article wrappers often set `overflow` on an ancestor, which
+    re-scopes sticky to a non-scrolling box and hides the chevron.
 -->
 <style>
   .levee-timeline-wrap {
@@ -19,11 +23,12 @@
     margin: 0 auto;
   }
   .levee-scroll-hint {
-    position: sticky;
+    position: fixed;
     bottom: 16px;
+    left: 50%;
+    transform: translateX(-50%);
     width: 32px;
     height: 32px;
-    margin: 0 auto 8px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -31,19 +36,21 @@
     background: rgba(255, 255, 255, 0.85);
     border-radius: 50%;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
-    opacity: 0.7;
+    opacity: 0;
     pointer-events: none;
     transition: opacity 0.25s ease;
+    z-index: 2147483000;
   }
-  .levee-scroll-hint.is-done {
-    opacity: 0;
-  }
+  .levee-scroll-hint.is-visible { opacity: 0.85; }
+  .levee-scroll-hint.is-visible.is-done { opacity: 0; }
+  .levee-scroll-start,
   .levee-scroll-end {
     width: 100%;
     height: 1px;
   }
 </style>
 <div class="levee-timeline-wrap">
+  <div class="levee-scroll-start" aria-hidden="true"></div>
   <iframe
     id="levee-timeline-frame"
     src="https://alexlubben.github.io/levee_timeline/"
@@ -52,10 +59,10 @@
     scrolling="no"
     style="display:block;width:100%;max-width:450px;margin:0 auto;border:0;height:600px;"
   ></iframe>
-  <div class="levee-scroll-hint" aria-hidden="true">
-    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-  </div>
   <div class="levee-scroll-end" aria-hidden="true"></div>
+</div>
+<div class="levee-scroll-hint" aria-hidden="true">
+  <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
 </div>
 
 <script>
@@ -80,18 +87,30 @@
   });
 
   var hint = document.querySelector('.levee-scroll-hint');
+  var startSentinel = document.querySelector('.levee-scroll-start');
   var endSentinel = document.querySelector('.levee-scroll-end');
-  if (hint && endSentinel && 'IntersectionObserver' in window) {
-    var observer = new IntersectionObserver(function (entries) {
+  if (hint && startSentinel && endSentinel && 'IntersectionObserver' in window) {
+    var startPassed = false;
+    var endReached = false;
+
+    function render() {
+      hint.classList.toggle('is-visible', startPassed && !endReached);
+      hint.classList.toggle('is-done', endReached);
+    }
+
+    new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          hint.classList.add('is-done');
-        } else {
-          hint.classList.remove('is-done');
-        }
+        startPassed = entry.boundingClientRect.top < 0;
+        render();
       });
-    });
-    observer.observe(endSentinel);
+    }, { threshold: [0, 1] }).observe(startSentinel);
+
+    new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        endReached = entry.isIntersecting;
+        render();
+      });
+    }).observe(endSentinel);
   }
 })();
 </script>
