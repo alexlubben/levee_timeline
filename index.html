@@ -34,70 +34,69 @@ html, body {
 }
 
 .wrap {
-  max-width: 720px;
+  max-width: 450px;
   margin: 0 auto;
-  padding: 8px 16px 16px;
+  padding: 4px 12px 12px;
 }
 
 /* header: title + dek */
 .timeline-title {
   font-family: var(--serif);
   font-weight: 700;
-  font-size: 28px;
+  font-size: 22px;
   line-height: 1.2;
   color: var(--text);
-  margin: 0 0 8px;
+  margin: 0 0 6px;
   letter-spacing: -0.01em;
 }
 .timeline-dek {
   font-family: var(--serif);
-  font-size: 16px;
+  font-size: 13.5px;
   line-height: 1.5;
   color: var(--text);
-  margin: 0 0 28px;
-  max-width: 620px;
+  margin: 0 0 20px;
 }
 
 /* timeline rail */
 .events {
   position: relative;
-  padding-left: 28px;
+  padding-left: 22px;
   border-left: 1px solid var(--rule);
 }
 .event {
   position: relative;
-  padding: 0 0 22px 2px;
+  padding: 0 0 12px 2px;
 }
 .event:last-child { padding-bottom: 0; }
 .event::before {
   content: "";
   position: absolute;
-  left: -33.5px;
-  top: 8px;
-  width: 9px;
-  height: 9px;
+  left: -26px;
+  top: 6px;
+  width: 7px;
+  height: 7px;
   background: var(--accent);
   border: 0;
   border-radius: 50%;
-  box-shadow: 0 0 0 3px var(--background), 0 0 0 4px var(--accent);
+  box-shadow: 0 0 0 2px var(--background), 0 0 0 3px var(--accent);
 }
 
 .event-date {
   font-family: var(--sans);
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 700;
-  letter-spacing: .14em;
+  letter-spacing: .12em;
   text-transform: uppercase;
   color: var(--accent);
-  margin-bottom: 5px;
+  margin-bottom: 3px;
 }
 
 .event-headline {
   font-family: var(--serif);
   font-weight: 700;
-  font-size: 18px;
+  font-size: 15px;
   line-height: 1.3;
-  margin: 0 0 6px;
+  margin: 0 0 3px;
   letter-spacing: -0.005em;
 }
 .event-headline a {
@@ -112,8 +111,8 @@ html, body {
 
 .event-body {
   font-family: var(--serif);
-  font-size: 15px;
-  line-height: 1.5;
+  font-size: 13px;
+  line-height: 1.45;
   color: var(--text);
   margin: 0;
   font-weight: 400;
@@ -122,38 +121,32 @@ html, body {
 /* year markers */
 .year {
   position: relative;
-  margin: 28px 0 16px;
+  margin: 18px 0 10px;
   padding-left: 2px;
 }
 .year:first-of-type { margin-top: 4px; }
 .year::before {
   content: "";
   position: absolute;
-  left: -40px;
-  top: 14px;
-  width: 14px;
+  left: -33px;
+  top: 11px;
+  width: 10px;
   height: 1px;
   background: var(--rule-strong);
 }
 .year-label {
   font-family: var(--serif);
   font-weight: 700;
-  font-size: 22px;
+  font-size: 17px;
   color: var(--text);
   letter-spacing: -0.01em;
 }
 
-/* responsive */
-@media (max-width: 640px) {
-  .wrap { padding: 24px 18px 36px; }
-  .events { padding-left: 22px; }
-  .event::before { left: -27.5px; }
-  .year::before { left: -34px; width: 12px; }
-  .timeline-title { font-size: 24px; }
-  .timeline-dek { font-size: 15px; }
-  .event-headline { font-size: 17px; }
-  .event-body { font-size: 14.5px; }
-  .year-label { font-size: 20px; }
+/* responsive: container is already narrow, only tighten padding on very small phones */
+@media (max-width: 420px) {
+  .wrap { padding: 4px 10px 12px; }
+  .timeline-title { font-size: 20px; }
+  .timeline-dek { font-size: 13px; }
 }
 
 @media print {
@@ -174,104 +167,99 @@ html, body {
     <div class="year"><div class="year-label">2024</div></div>
 
     <div class="event">
-      <div class="event-date">May 20, 2024</div>
+      <div class="event-date">May 2024</div>
       <h3 class="event-headline"><a href="https://www.nola.com/news/environment/jeff-landry-refuses-engineering-expert-for-no-levee-board/article_fc750266-16b4-11ef-ad63-7f6fe2e44e0a.html" target="_blank" rel="noopener">Landry declines to advance Norma Jean Mattei.</a></h3>
-      <p class="event-body">The governor refuses to forward a unanimously-nominated civil engineer and former head of the American Society of Civil Engineers to the Senate. It is the first public sign of a break with the post-Katrina nominating process.</p>
+      <p class="event-body">Landry refuses to advance the committee’s unanimous civil-engineer pick — the first crack in the post-Katrina nominating process.</p>
     </div>
 
     <div class="event">
       <div class="event-date">June 21, 2024</div>
       <h3 class="event-headline"><a href="https://www.nola.com/news/environment/gov-landry-risks-politicizing-no-levee-system-lapeyre/article_518c4b46-2f43-11ef-8ee0-a3ffdec539a9.html" target="_blank" rel="noopener">Nominating committee chair warns against politicization.</a></h3>
-      <p class="event-body">Jay Lapeyre, who chaired the committee for 12 years, says Landry's refusal "negates the function" of the independent vetting process.</p>
+      <p class="event-body">Committee chair Jay Lapeyre says the refusal “negates the function” of the independent vetting process.</p>
     </div>
 
     <div class="event">
-      <div class="event-date">Nov. 6, 2024</div>
+      <div class="event-date">Nov. 2024</div>
       <h3 class="event-headline"><a href="https://www.nola.com/news/environment/louisiana-hurricane-levees-investigation-jeff-landry-shane-guidry-new-orleans/article_d6c4b266-9c4f-11ef-a2b9-93a2ab2a9a5d.html" target="_blank" rel="noopener">Carubba named president; AG investigation opens.</a></h3>
-      <p class="event-body">Roy Carubba, who had done engineering work for Shane Guidry's company, is installed as board president. Regional director Kelli Chandler is placed on leave pending an internal probe assisted by the attorney general.</p>
+      <p class="event-body">Roy Carubba, tied to Guidry contracts, becomes board president; AG opens a probe as director Chandler is placed on leave.</p>
     </div>
-
 
     <div class="event">
       <div class="event-date">Dec. 13, 2024</div>
       <h3 class="event-headline"><a href="https://www.nola.com/news/environment/kelli-chandler-resigns-as-head-of-new-orleans-area-levee-board-after-clash-over-use-of-police-force/article_9a66e36c-b8cd-11ef-9295-d3038f19ac80.html" target="_blank" rel="noopener">Regional director Kelli Chandler resigns.</a></h3>
-      <p class="event-body">According to Guidry, the sticking point was the police force: Chandler opposed expanding it; the governor wanted it larger.</p>
+      <p class="event-body">Chandler resigns amid a dispute over expanding the levee police force.</p>
     </div>
 
     <!-- 2025 -->
     <div class="year"><div class="year-label">2025</div></div>
 
     <div class="event">
-      <div class="event-date">Jan. 16, 2025</div>
-      <h3 class="event-headline"><a href="https://www.nola.com/news/environment/new-orleans-jeff-landry-shane-guidry-flooding-levees-hurricane-katrina/article_7573a008-d381-11ef-8ae2-a337bdcc941b.html" target="_blank" rel="noopener">Guidry's hand becomes visible. "Look at Elon Musk."</a></h3>
-      <p class="event-body">The governor's unelected New Orleans adviser emerges as the figure directing agency changes, including a push to elevate the role of the police chief.</p>
+      <div class="event-date">Jan. 2025</div>
+      <h3 class="event-headline"><a href="https://www.nola.com/news/environment/new-orleans-jeff-landry-shane-guidry-flooding-levees-hurricane-katrina/article_7573a008-d381-11ef-8ae2-a337bdcc941b.html" target="_blank" rel="noopener">Guidry’s hand becomes visible. “Look at Elon Musk.”</a></h3>
+      <p class="event-body">Unelected adviser Shane Guidry emerges as the hand directing agency changes.</p>
     </div>
 
-
     <div class="event">
-      <div class="event-date">March 18, 2025</div>
+      <div class="event-date">March 2025</div>
       <h3 class="event-headline"><a href="https://www.nola.com/news/environment/levee-authority-flood-control-new-orleans-jeff-landry/article_af0af6ea-0400-11f0-ab3f-476eae03f116.html" target="_blank" rel="noopener">Four board members quit in protest.</a></h3>
-      <p class="event-body">A wave of resignations cites concerns that the agency's flood-protection mission is being diluted. Hurricane season is weeks away.</p>
+      <p class="event-body">Four board members quit in protest weeks before hurricane season, citing a diluted flood-protection mission.</p>
     </div>
 
     <div class="event">
-      <div class="event-date">April 8, 2025</div>
+      <div class="event-date">April 2025</div>
       <h3 class="event-headline"><a href="https://www.nola.com/news/environment/flood-protection-levee-new-orleans-jeff-landy-shane-guidry/article_6581c750-1ee2-47f3-b3c8-bb64031f04ed.html" target="_blank" rel="noopener">Overhaul bill hits the legislature.</a></h3>
-      <p class="event-body">Landry-backed legislation would scrap the independent nominating committee and require a police officer on the board.</p>
+      <p class="event-body">Landry-backed bill would scrap the independent nominating committee and require a police officer on the board.</p>
     </div>
 
     <div class="event">
-      <div class="event-date">May 6, 2025</div>
-      <h3 class="event-headline"><a href="https://www.nola.com/news/environment/jeff-landry-flood-protection-bill-legislature-louisiana-new-orleans/article_a52e6b78-afc1-4c5a-905d-55ffd39e8988.html" target="_blank" rel="noopener">Overhaul effort fizzles. Bill scaled back.</a></h3>
-      <p class="event-body">After legislative pushback, the rewritten bill preserves the nominating committee and most post-Katrina safeguards.</p>
+      <div class="event-date">April 2025</div>
+      <h3 class="event-headline"><a href="https://www.nola.com/news/environment/new-orleans-flood-protection-police-budget/article_0162c1d5-a740-4882-bec0-2cf3a716926d.html" target="_blank" rel="noopener">Police budget rises $3.7 million, nearly 50%.</a></h3>
+      <p class="event-body">Levee police budget jumps $3.7 million — nearly 50% — even as Rondeno claims savings.</p>
     </div>
 
+    <div class="event">
+      <div class="event-date">May 2025</div>
+      <h3 class="event-headline"><a href="https://www.nola.com/news/environment/jeff-landry-flood-protection-bill-legislature-louisiana-new-orleans/article_a52e6b78-afc1-4c5a-905d-55ffd39e8988.html" target="_blank" rel="noopener">Overhaul effort fizzles. Bill scaled back.</a></h3>
+      <p class="event-body">Legislature rewrites the bill, preserving the nominating committee and most post-Katrina safeguards.</p>
+    </div>
 
     <div class="event">
       <div class="event-date">June 17, 2025</div>
-      <h3 class="event-headline"><a href="https://www.nola.com/news/environment/new-orleans-flood-board-conflict-jeff-landry-hurricanes/article_f92e4778-5f92-4efa-a1fd-9de6d38410e1.html" target="_blank" rel="noopener">"Hit me." A public meeting nearly turns physical.</a></h3>
-      <p class="event-body">Shouting, accusations of corruption, and a confrontation between Carubba and Clay Cossé that appeared to nearly turn physical. Guidry said he wasn't aware there was a meeting because he was "on my big yacht."</p>
+      <h3 class="event-headline"><a href="https://www.nola.com/news/environment/new-orleans-flood-board-conflict-jeff-landry-hurricanes/article_f92e4778-5f92-4efa-a1fd-9de6d38410e1.html" target="_blank" rel="noopener">“Hit me.” A public meeting nearly turns physical.</a></h3>
+      <p class="event-body">A public meeting nearly turns physical; Guidry says he missed it because he was “on my big yacht.”</p>
     </div>
 
     <div class="event">
-      <div class="event-date">July 29, 2025</div>
+      <div class="event-date">July 2025</div>
       <h3 class="event-headline"><a href="https://www.nola.com/news/environment/new-orleans-louisiana-jeff-landry-flooding-hurricanes/article_70ba26f0-b21d-4004-8a71-bc260db9323a.html" target="_blank" rel="noopener">Landry removes Carubba. Vicari installed.</a></h3>
-      <p class="event-body">Six weeks after the near-fight, the governor replaces his handpicked president with contractor Peter Vicari. Carubba remains a regular board member.</p>
-    </div>
-
-
-    <div class="event">
-      <div class="event-date">Sept. 13, 2025</div>
-      <h3 class="event-headline"><a href="https://www.nola.com/news/environment/new-orleans-flood-protection-police-budget/article_0162c1d5-a740-4882-bec0-2cf3a716926d.html" target="_blank" rel="noopener">Police budget rises $3.7 million, nearly 50%.</a></h3>
-      <p class="event-body">Rondeno claims savings of "millions upon millions" but records show policing spending sharply up.</p>
+      <p class="event-body">Landry ousts Carubba as president and installs contractor Peter Vicari.</p>
     </div>
 
     <div class="event">
-      <div class="event-date">Oct. 2, 2025</div>
+      <div class="event-date">Sept. 2025</div>
       <h3 class="event-headline"><a href="https://www.nola.com/news/environment/new-orleans-levee-police-swat/article_30587a87-8ea3-41e1-b9cf-b1f3dec272b2.html" target="_blank" rel="noopener">Levee police invite officers to apply for SWAT-trained unit.</a></h3>
-      <p class="event-body">An internal document describes specialized training and new rifles for a 50-officer force whose primary mandate is protecting flood infrastructure.</p>
+      <p class="event-body">Internal memo invites officers onto a SWAT-trained, rifle-equipped unit inside the levee police.</p>
     </div>
 
+    <div class="event">
+      <div class="event-date">Oct. 2025</div>
+      <h3 class="event-headline"><a href="https://www.nola.com/news/politics/new-orleans-levee-board-flooding-hurricanes-government-jeff-landry/article_8ecc5aa5-6b47-4e93-b556-45b1063639fb.html" target="_blank" rel="noopener">Battery allegation against a commissioner.</a></h3>
+      <p class="event-body">Rondeno files a misdemeanor battery charge against 68-year-old commissioner Deborah Settoon.</p>
+    </div>
 
     <!-- 2026 -->
     <div class="year"><div class="year-label">2026</div></div>
 
     <div class="event">
-      <div class="event-date">Feb. 3, 2026</div>
-      <h3 class="event-headline"><a href="https://www.nola.com/news/politics/new-orleans-levee-board-flooding-hurricanes-government-jeff-landry/article_8ecc5aa5-6b47-4e93-b556-45b1063639fb.html" target="_blank" rel="noopener">Battery allegation against a commissioner.</a></h3>
-      <p class="event-body">Rondeno files a misdemeanor battery charge against 68-year-old board member Deborah Settoon, claiming she punched him in the arm. Settoon calls it absurd.</p>
-    </div>
-
-    <div class="event">
-      <div class="event-date">Feb. 4, 2026</div>
+      <div class="event-date">Feb. 2026</div>
       <h3 class="event-headline"><a href="https://www.nola.com/news/environment/flood-authority-police-chief-drops-charge-after-board-resignation/article_e31c503e-28b6-4edf-9fed-d9ebaac73350.html" target="_blank" rel="noopener">Charge dropped the day Settoon resigns.</a></h3>
-      <p class="event-body">The police chief withdraws the battery charge after the board member steps down.</p>
+      <p class="event-body">The battery charge is dropped the same day Settoon resigns from the board.</p>
     </div>
 
     <div class="event">
-      <div class="event-date">April 20, 2026</div>
-      <h3 class="event-headline"><a href="https://www.nola.com/news/environment/new-orleans-flood-agency-quietly-approves-more-raises-for-police-chief-salary-could-hit-250/article_f78a0850-a0c4-46c5-b260-0d869085f77c.html" target="_blank" rel="noopener">Police chief's new contract could reach $250,000.</a></h3>
-      <p class="event-body">Quietly approved: guaranteed 6% annual raises, firing protection no other employee has, a three-year term ending in 2029. The agency's engineering department is 12 of 18 positions filled.</p>
+      <div class="event-date">Feb. 2026</div>
+      <h3 class="event-headline"><a href="https://www.nola.com/news/environment/new-orleans-flood-agency-quietly-approves-more-raises-for-police-chief-salary-could-hit-250/article_f78a0850-a0c4-46c5-b260-0d869085f77c.html" target="_blank" rel="noopener">Police chief’s new contract could reach $250,000.</a></h3>
+      <p class="event-body">Quietly approved chief’s contract: guaranteed 6% raises, firing protection, term through 2029; engineering dept. at 12 of 18.</p>
     </div>
 
   </div>
